@@ -8,6 +8,6 @@
 [github]: https://github.com/SummerHanada/QLAssets/raw/master/QLAsset.gif "GitHub,Social Coding"
 
 <br /> 没有访问权限时的页面：<br />
-https://github.com/SummerHanada/QLAssets/blob/master/no%20access.png "GitHub,Social Coding"
+[github]: https://github.com/SummerHanada/QLAssets/blob/master/no%20access.png "GitHub,Social Coding"
 
 
