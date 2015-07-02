@@ -56,7 +56,7 @@ NSString *const kQLAssetsGroupCellIdentifier = @"kQLAssetsGroupCellIdentifier";
 {
     UILabel *lb = [[UILabel alloc]initWithFrame:CGRectZero];
     NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
-    
+    if(!bundleName)bundleName = @"";
     lb.text = [NSString stringWithFormat:@"\n\n\n请在%@的“设置－隐私－照片”选项中，\n允许%@访问你的相册",[[UIDevice currentDevice]model],bundleName];
     lb.font = [UIFont systemFontOfSize:13];
     lb.textColor = [UIColor lightGrayColor];
