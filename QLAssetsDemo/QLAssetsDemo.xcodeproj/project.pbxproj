@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B423CE181B4528B10095CF61 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B423CE171B4528B10095CF61 /* AssetsLibrary.framework */; };
 		B45D8AF31B43A1140022BA3A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B45D8AF21B43A1140022BA3A /* main.m */; };
 		B45D8AF61B43A1140022BA3A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B45D8AF51B43A1140022BA3A /* AppDelegate.m */; };
 		B45D8AF91B43A1140022BA3A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B45D8AF81B43A1140022BA3A /* ViewController.m */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B423CE171B4528B10095CF61 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		B45D8AED1B43A1140022BA3A /* QLAssetsDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QLAssetsDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B45D8AF11B43A1140022BA3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B45D8AF21B43A1140022BA3A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B423CE181B4528B10095CF61 /* AssetsLibrary.framework in Frameworks */,
 				B45D8B4B1B43A8340022BA3A /* UIKit.framework in Frameworks */,
 				B45D8B491B43A82E0022BA3A /* Foundation.framework in Frameworks */,
 			);
@@ -94,6 +97,7 @@
 		B45D8AE41B43A1140022BA3A = {
 			isa = PBXGroup;
 			children = (
+				B423CE171B4528B10095CF61 /* AssetsLibrary.framework */,
 				B45D8B4A1B43A8340022BA3A /* UIKit.framework */,
 				B45D8B481B43A82E0022BA3A /* Foundation.framework */,
 				B45D8AEF1B43A1140022BA3A /* QLAssetsDemo */,
@@ -462,6 +466,7 @@
 				B45D8B121B43A1140022BA3A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
