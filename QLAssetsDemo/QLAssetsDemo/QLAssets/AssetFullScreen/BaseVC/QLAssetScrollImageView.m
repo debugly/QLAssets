@@ -93,7 +93,13 @@
 - (void)updateImage:(UIImage *)img
 {
     self.imageView.image = img;
+//    CGRect rect;
+//    rect.origin = CGPointZero;
+//    rect.size = [self.imageView sizeThatFits:self.scrollView.bounds.size];
+//    self.imageView.frame = rect;
+    
     [self.imageView setNeedsDisplay];
+    
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView

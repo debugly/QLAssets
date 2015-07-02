@@ -52,6 +52,20 @@ NSString *const kQLAssetsGroupCellIdentifier = @"kQLAssetsGroupCellIdentifier";
     
 }
 
+- (void)prepareNoAccessView
+{
+    UILabel *lb = [[UILabel alloc]initWithFrame:CGRectZero];
+    NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
+    
+    lb.text = [NSString stringWithFormat:@"\n\n\n请在%@的“设置－隐私－照片”选项中，\n允许%@访问你的相册",[[UIDevice currentDevice]model],bundleName];
+    lb.font = [UIFont systemFontOfSize:13];
+    lb.textColor = [UIColor lightGrayColor];
+    lb.textAlignment = NSTextAlignmentCenter;
+    lb.numberOfLines = 0;
+    [lb sizeToFit];
+    self.tableView.tableHeaderView = lb;
+}
+
 - (void)cancleAction
 {
     [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
@@ -70,62 +84,67 @@ NSString *const kQLAssetsGroupCellIdentifier = @"kQLAssetsGroupCellIdentifier";
     _groupArr = [[NSMutableArray alloc]initWithCapacity:3];
     
     switch ([ALAssetsLibrary authorizationStatus]) {
-        case ALAuthorizationStatusNotDetermined:
-        {
-            NSLog(@"NotDetermined");//第一次是这个；
-        }
-            break;
-        case ALAuthorizationStatusAuthorized:
-        {
-//        授权；
-        }
-            break;
         case ALAuthorizationStatusDenied:
         {
-//        拒绝；
+            //        拒绝；
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self prepareNoAccessView];
+            });
         }
             break;
+        case ALAuthorizationStatusNotDetermined:
+        {
+            NSLog(@"Not Determined");//第一次是这个；
+        }
+        case ALAuthorizationStatusAuthorized:
+        {
+            //        授权；
+            NSLog(@"Already Determined");
+        }
         case ALAuthorizationStatusRestricted:
         {
             NSLog(@"Restricted");
         }
-            break;
         default:
-            break;
-    }
-    
-    [self.assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-        if (group && group.numberOfAssets > 0) {
-            QLAssetsGroupModel *gModel = [QLAssetsGroupModel new];
-            gModel.groupName = [group valueForProperty:ALAssetsGroupPropertyName];
-            gModel.posterImage = [UIImage imageWithCGImage:[group posterImage]];
-            
-            @autoreleasepool {
-                [group setAssetsFilter:[ALAssetsFilter allPhotos]];
-                NSMutableArray *assetArr = [[NSMutableArray alloc]initWithCapacity:10];
-                
-                [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                    if (result == 0x00) {
-                        NSLog(@"--system is keng! Bacause it is nil--");
-                    }else if (result && [result isKindOfClass:[ALAsset class]])
-                    {
-                        [assetArr addObject:result];
+        {
+            [self.assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+                if (group && group.numberOfAssets > 0) {
+                    QLAssetsGroupModel *gModel = [QLAssetsGroupModel new];
+                    gModel.groupName = [group valueForProperty:ALAssetsGroupPropertyName];
+                    gModel.posterImage = [UIImage imageWithCGImage:[group posterImage]];
+                    
+                    @autoreleasepool {
+                        [group setAssetsFilter:[ALAssetsFilter allPhotos]];
+                        NSMutableArray *assetArr = [[NSMutableArray alloc]initWithCapacity:10];
+                        
+                        [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                            if (result == 0x00) {
+                                NSLog(@"--system is keng! Bacause it is nil--");
+                            }else if (result && [result isKindOfClass:[ALAsset class]])
+                            {
+                                [assetArr addObject:result];
+                            }
+                            if (index + 1 == group.numberOfAssets) {
+                                gModel.photoArr = [NSArray arrayWithArray:assetArr];
+                            }
+                        }];
                     }
-                    if (index + 1 == group.numberOfAssets) {
-                        gModel.photoArr = [NSArray arrayWithArray:assetArr];
-                    }
-                }];
-            }
-            [self.groupArr addObject:gModel];
-        }else{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
-            [self readImage2Cache];
+                    [self.groupArr addObject:gModel];
+                }else{
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.tableView reloadData];
+                    });
+                    [self readImage2Cache];
+                }
+            } failureBlock:^(NSError *error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self prepareNoAccessView];
+                });
+                //        NSLog(@"failure");ALAuthorizationStatusNotDetermined决绝的时候就失败了；
+            }];
+
         }
-    } failureBlock:^(NSError *error) {
-//        NSLog(@"failure");ALAuthorizationStatusNotDetermined决绝的时候就失败了；
-    }];
+    }
 }
 
 - (void)readImage2Cache
@@ -169,15 +188,6 @@ NSString *const kQLAssetsGroupCellIdentifier = @"kQLAssetsGroupCellIdentifier";
     [cell updateConstraintsIfNeeded];
     
     return cell;
-}
-
-- (void)pushDefaultAssetsPage
-{
-    if (self.groupArr.count > 0) {
-        QLAssetsGroupModel *model = self.groupArr[0];
-        QLAssetsViewController *vc = [[QLAssetsViewController alloc]initWithGroupModel:model];
-        [self.navigationController pushViewController:vc animated:YES];
-    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

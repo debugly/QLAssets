@@ -15,8 +15,4 @@
 
 - (id)initWithManagerFinishBlock:(QLAssetManagerFinishBlock)block;
 
-- (void)pushDefaultAssetsPage;
-
-
-
 @end

@@ -8,10 +8,10 @@
 
 #import "QLAssetsCommonHeader.h"
 
-const CGFloat QLAssetsCollectionViewCellSelBtnTopMarin = 3;
-const CGFloat QLAssetsCollectionViewCellSelBtnRightMarin = 3;
-const CGFloat QLAssetsCollectionViewCellSelBtnWith = 20;
-const CGFloat QLAssetsCollectionViewCellSelBtnHeight = 20;
+const CGFloat QLAssetsCollectionViewCellSelBtnTopMarin = 5;
+const CGFloat QLAssetsCollectionViewCellSelBtnRightMarin = 5;
+const CGFloat QLAssetsCollectionViewCellSelBtnWith = 30;
+const CGFloat QLAssetsCollectionViewCellSelBtnHeight = 30;
 const CGFloat QLAssetsCollectionViewCellCornerRadius = 5;
 
 const CGFloat QLAssetsViewControllerToolBarHeight = 40;

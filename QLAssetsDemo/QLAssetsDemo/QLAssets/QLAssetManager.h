@@ -7,7 +7,6 @@
 //
 
 #import "QLAssetsCommonHeader.h"
-#import <UIKit/UIKit.h>
 
 @interface QLAssetManager : NSObject
 
@@ -40,5 +39,15 @@
                      currentShowIndex:(NSUInteger)currentShowIndex
                          assetsModels:(NSArray *)assetsModels
                        finishSelBlock:(QLAssetManagerFinishBlock)finiBlock;
+
+///
+/**
+ *  保存图片到自定义分组里
+ *
+ *  @param image    图片
+ *  @param gName    分组名称
+ *  @param cmpBlock 回调错误，没有错误回调nil
+ */
++ (void)savePhoto:(UIImage *)image toGroup:(NSString *)gName completed:(void(^)(NSError *err))cmpBlock;
 
 @end
