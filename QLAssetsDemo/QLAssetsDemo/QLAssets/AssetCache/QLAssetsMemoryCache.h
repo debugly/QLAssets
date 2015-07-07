@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+FOUNDATION_EXPORT NSString *const QLAssetsMemoryCacheClearedCache;
+
 @interface QLAssetsMemoryCache : NSObject
 
 + (instancetype)sharedMemoryCache;
@@ -21,5 +23,7 @@
 
 - (void)removeImageForKey:(NSString *)key;
 - (void)removeImageForURL:(NSString *)key;
+
+- (void)clearMemory;
 
 @end

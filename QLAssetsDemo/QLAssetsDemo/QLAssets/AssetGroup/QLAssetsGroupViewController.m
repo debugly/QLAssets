@@ -118,7 +118,7 @@ NSString *const kQLAssetsGroupCellIdentifier = @"kQLAssetsGroupCellIdentifier";
                         NSMutableArray *assetArr = [[NSMutableArray alloc]initWithCapacity:10];
                         
                         [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                            if (result == 0x00) {
+                            if (!result) {
                                 NSLog(@"--system is keng! Bacause it is nil--");
                             }else if (result && [result isKindOfClass:[ALAsset class]])
                             {

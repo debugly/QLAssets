@@ -77,22 +77,12 @@
 
 - (void)setModel:(QLAssetsModel *)model
 {
-    _model = model;
-    UIImage *image = model.thumbnail;
-    if (image) {
-        self.imgView.image = image;
-    }else{
-        image = [[QLAssetsMemoryCache sharedMemoryCache]imageFromMemoryCacheForURL:[model.url absoluteString]];
-        if (image) {
-            model.thumbnail = image;
-            self.imgView.image = image;
-        }else{
-            
-        }
+    if(_model != model){
+        _model = model;
+        self.imgView.image = model.thumbnail;;
+        [self.selBtn setSelected:model.isSelected];
     }
-    [self.selBtn setSelected:model.isSelected];
 }
-
 
 - (void)clickedSelectBtn:(UIButton *)sender
 {    

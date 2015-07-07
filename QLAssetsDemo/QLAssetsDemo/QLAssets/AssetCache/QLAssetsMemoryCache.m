@@ -10,6 +10,8 @@
 #import <CommonCrypto/CommonDigest.h>
 #import <CommonCrypto/CommonCryptor.h>
 
+NSString *const QLAssetsMemoryCacheClearedCache = @"QLAssetsMemoryCacheClearedCache";
+
 @interface QLAssetsMemoryCache ()
 
 @property (nonatomic, strong) NSCache *memCache;
@@ -55,6 +57,7 @@
 - (void)clearMemory
 {
     [self.memCache removeAllObjects];
+    [[NSNotificationCenter defaultCenter]postNotificationName:QLAssetsMemoryCacheClearedCache object:nil];
 }
 
 - (NSString*)makeMD5String:(NSString *)string

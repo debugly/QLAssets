@@ -14,6 +14,6 @@
 @property (nonatomic, assign,getter=isSelected) BOOL selected;
 @property (nonatomic, weak)   UIImage *thumbnail;
 @property (nonatomic, strong) UIImage *selThumbnail;
-@property (nonatomic, strong) NSURL *url;
+@property (nonatomic, strong) NSURL *url; //asset's url
 
 @end
